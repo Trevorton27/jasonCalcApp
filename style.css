@@ -3,7 +3,7 @@
     border-radius: 25px;
     border: 18px outset #e009d2;
     padding: 5px;
-    width: 225px;
+    width: 215px;
     height: 275px;
     margin: auto;
 }
@@ -15,6 +15,7 @@ h1 {
     font-size: 64px;
     font-weight: bold;
     font-family: "Fira Sans", sans-serif;
+    /*this only works in some browsers*/
     -webkit-text-stroke: 4px greenyellow;
     -webkit-text-fill-color: #e009d2;
 
@@ -22,6 +23,12 @@ h1 {
 
 .buttons:hover {
     background-color: #e00981;
+}
+
+.buttons:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .buttons {
@@ -48,6 +55,7 @@ h1 {
 }
 #input{
     width: 145px;
+    height: 35px;
     border-radius: 25px;
     border: 5px inset #e009d2
 }
