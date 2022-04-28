@@ -48,14 +48,28 @@ const multiply = document.getElementById('multiply');
 const divide = document.getElementById('divide');
 const decimal = document.getElementById('decimal');
 
-function addNumbers(numbers) {
+function addNumbers(numbers, n1, n2) {
     let addButton = document.getElementById('add');
     addButton.addEventListener('click', function () {
         // const sum = numbers.reduce((a, b) => a + b, 0);
-        const sum = parseInt(numbers, 10);
-        total += sum;
+        let lastElement = numbers.splice(-1, 1);
+        let sum = parseInt(lastElement, 10);
+        n1 = sum;
+        console.log(sum);
+        numbers = [];
+        console.log(numbers);
+        sum = 0;
+        lastElement = numbers.splice(-1, 1);
+        sum = parseInt(lastElement, 10);
+        n2 = sum;
+        total = n1 + n2;
+        console.log(total);
 
-        console.log(sum, total);
+
+
+
+
+        console.log(sum, n1);
     });
 
 }
