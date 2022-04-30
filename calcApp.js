@@ -12,4 +12,18 @@ const tempResultElement = document.querySelector('.tempResult');
 let result = null;
 let display1Num = '';
 let display2Num = '';
-let hasDot = false;
+let hasDecimal = false;
+
+numberElement.forEach(number =>{
+    number.addEventListener('click', (e)=>{
+    if(e.target.innerText === '.' && !hasDecimal){
+        hasDecimal = true;
+    }else if(e.target.innerText === '.' && hasDecimal){
+        return;
+    }
+        display2Num += e.target.innerText;
+        displayElement2.innerText = display2Num;
+
+    });
+
+});
