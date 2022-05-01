@@ -35,7 +35,11 @@ operatorElement.forEach((operator) => {
     const operationName = e.target.innerText;
     if (display2Num && display1Num && lastOperation) {
       mathOperation();
+    } else {
+      result = parseFloat(display2Num);
     }
+    clearVar(operationName);
+    lastOperation = operationName;
   });
 });
 
@@ -58,8 +62,12 @@ function mathOperation() {
   }
 }
 
-// transfer display2Num to display1Num
-
-//update temoResult
+function clearVar(name = "") {
+  display1Num += display2Num = " " + name + " ";
+  displayElement1.innerText = display1Num;
+  displayElement2.innerText = "";
+  display2Num = "";
+  tempResultElement.innerText = result;
+}
 
 //
