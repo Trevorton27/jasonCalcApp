@@ -9,11 +9,16 @@ const displayElement1 = document.querySelector(".display1");
 const displayElement2 = document.querySelector(".display2");
 const tempResultElement = document.querySelector(".tempResult");
 
+const memRecallElement = document.querySelector(".memRecall");
+const memClearElement = document.querySelector(".memClear");
+const memStoreElement = document.querySelector(".memStore");
+
 let result = null;
 let display1Num = "";
 let display2Num = "";
 let hasDecimal = false;
 let previousOperator = "";
+let mStore = "";
 
 numberElement.forEach((number) => {
   number.addEventListener("click", (e) => {
@@ -45,19 +50,14 @@ operatorElement.forEach((operator) => {
 function mathOperation() {
   if (previousOperator === "+") {
     result = parseFloat(result) + parseFloat(display2Num);
-    console.log("add working", result);
   } else if (previousOperator === "-") {
     result = parseFloat(result) - parseFloat(display2Num);
-    console.log("subtract working", result);
   } else if (previousOperator === "*") {
     result = parseFloat(result) * parseFloat(display2Num);
-    console.log("multiply working", result);
   } else if (previousOperator === "/") {
     result = parseFloat(result) / parseFloat(display2Num);
-    console.log("division working", result);
   } else if (previousOperator === "%") {
     result = parseFloat(result) % parseFloat(display2Num);
-    console.log("modulus working", result);
   }
 }
 
@@ -80,9 +80,21 @@ equalElement.addEventListener("click", (e) => {
   display2Num = result;
   tempResultElement.innerText = "";
 });
-clearElement.addEventListener("click", (e) => {
+clearLastElement.addEventListener("click", (e) => {
   display2Num = "";
   displayElement2.innerText = "0";
   display1Num = "";
   displayElement1.innerText = "0";
+  tempResultElement.innerText = "";
+});
+memStoreElement.addEventListener("click", (e) => {
+  mStore = display2Num;
+  console.log(mStore);
+});
+memRecallElement.addEventListener("click", (e) => {
+  display2Num = mStore;
+  displayElement2.innerText = mStore;
+});
+memClearElement.addEventListener("click", (e) => {
+  mStore = "";
 });
