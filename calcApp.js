@@ -29,45 +29,60 @@ numberElement.forEach((number) => {
 
 operatorElement.forEach((operator) => {
   operator.addEventListener("click", (e) => {
-    if (!display2Num) {
-      hasDecimal = false;
-    }
+    if (!display2Num) return;
+    hasDecimal = false;
     const operationName = e.target.innerText;
-    if (display2Num && display1Num && lastOperation) {
+    if (display2Num && display1Num && previousOperator) {
       mathOperation();
     } else {
       result = parseFloat(display2Num);
     }
     clearVar(operationName);
-    lastOperation = operationName;
+    previousOperator = operationName;
   });
 });
 
 function mathOperation() {
-  if (lastOperation === "+") {
+  if (previousOperator === "+") {
     result = parseFloat(result) + parseFloat(display2Num);
     console.log("add working", result);
-  } else if (lastOperation === "-") {
+  } else if (previousOperator === "-") {
     result = parseFloat(result) - parseFloat(display2Num);
     console.log("subtract working", result);
-  } else if (lastOperation === "*") {
+  } else if (previousOperator === "*") {
     result = parseFloat(result) * parseFloat(display2Num);
     console.log("multiply working", result);
-  } else if (lastOperation === "/") {
+  } else if (previousOperator === "/") {
     result = parseFloat(result) / parseFloat(display2Num);
     console.log("division working", result);
-  } else if (lastOperation === "%") {
+  } else if (previousOperator === "%") {
     result = parseFloat(result) % parseFloat(display2Num);
     console.log("modulus working", result);
   }
 }
 
 function clearVar(name = "") {
-  display1Num += display2Num = " " + name + " ";
+  display1Num += display2Num + " " + name + " ";
   displayElement1.innerText = display1Num;
   displayElement2.innerText = "";
   display2Num = "";
   tempResultElement.innerText = result;
 }
 
-//
+equalElement.addEventListener("click", (e) => {
+  if (!display2Num || !display1Num) {
+    return;
+  }
+  mathOperation();
+  clearVar();
+  displayElement2.innerText = result;
+  display1Num = "";
+  display2Num = result;
+  tempResultElement.innerText = "";
+});
+clearElement.addEventListener("click", (e) => {
+  display2Num = "";
+  displayElement2.innerText = "0";
+  display1Num = "";
+  displayElement1.innerText = "0";
+});
