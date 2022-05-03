@@ -1,7 +1,7 @@
 const numberElement = document.querySelectorAll(".number");
 const operatorElement = document.querySelectorAll(".operator");
 const equalElement = document.querySelector(".equal");
-const clearElement = document.querySelector(".allClear");
+const clearEntityElement = document.querySelector(".clearEntity");
 const clearLastElement = document.querySelector(".clearLast");
 const decimalElement = document.querySelector(".decimal");
 
@@ -81,15 +81,16 @@ equalElement.addEventListener("click", (e) => {
   tempResultElement.innerText = "";
 });
 clearLastElement.addEventListener("click", (e) => {
-  display2Num = "";
-  displayElement2.innerText = "0";
-  display1Num = "";
-  displayElement1.innerText = "0";
-  tempResultElement.innerText = "";
+  clearScreen();
 });
+clearEntityElement.addEventListener("click", (e) => {
+  displayElement2.innerText = "";
+  display2Num = "";
+});
+
 memStoreElement.addEventListener("click", (e) => {
   mStore = display2Num;
-  console.log(mStore);
+  clearScreen();
 });
 memRecallElement.addEventListener("click", (e) => {
   display2Num = mStore;
@@ -97,4 +98,13 @@ memRecallElement.addEventListener("click", (e) => {
 });
 memClearElement.addEventListener("click", (e) => {
   mStore = "";
+  clearScreen();
 });
+const clearScreen = () => {
+  display2Num = "";
+  displayElement2.innerText = "0";
+  display1Num = "";
+  displayElement1.innerText = "0";
+  tempResultElement.innerText = "";
+  previousOperator = "";
+};
