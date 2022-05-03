@@ -120,16 +120,30 @@ window.addEventListener("keydown", (e) => {
     e.key === "8" ||
     e.key === "9" ||
     e.key === "0" ||
-    e.key === "."
+    e.key === "." ||
+    e.key === "*" ||
+    e.key === "/" ||
+    e.key === "+" ||
+    e.key === "-" ||
+    e.key === "%" ||
+    e.key === "Enter"
   ) {
     clickAction(e.key);
-    // clearScreen();
   }
 });
+
 function clickAction(key) {
   numberElement.forEach((number) => {
     if (key === number.innerText) {
       number.click();
     }
   });
+  operatorElement.forEach((operator) => {
+    if (key === operator.innerText) {
+      operator.click();
+    }
+  });
+  if (key === "Enter") {
+    equalElement.click();
+  }
 }
