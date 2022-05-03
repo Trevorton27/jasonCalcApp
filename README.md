@@ -2,7 +2,7 @@
 
 <i>Calculator with Memory Functions</i>
 
-Check it out <a href="https://breedlove-jason.github.io/toDoApp/">here</a>
+Check it out <a href="https://breedlove-jason.github.io/calculatorApp/">here</a>
 
 ## Summary
 
