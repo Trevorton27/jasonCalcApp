@@ -1,9 +1,9 @@
 const numberElement = document.querySelectorAll(".number");
 const operatorElement = document.querySelectorAll(".operator");
 const equalElement = document.querySelector(".equal");
+
 const clearEntityElement = document.querySelector(".clearEntity");
 const clearLastElement = document.querySelector(".clearLast");
-const decimalElement = document.querySelector(".decimal");
 
 const displayElement1 = document.querySelector(".display1");
 const displayElement2 = document.querySelector(".display2");
@@ -108,3 +108,28 @@ const clearScreen = () => {
   tempResultElement.innerText = "";
   previousOperator = "";
 };
+window.addEventListener("keydown", (e) => {
+  if (
+    e.key === "1" ||
+    e.key === "2" ||
+    e.key === "3" ||
+    e.key === "4" ||
+    e.key === "5" ||
+    e.key === "6" ||
+    e.key === "7" ||
+    e.key === "8" ||
+    e.key === "9" ||
+    e.key === "0" ||
+    e.key === "."
+  ) {
+    clickAction(e.key);
+    // clearScreen();
+  }
+});
+function clickAction(key) {
+  numberElement.forEach((number) => {
+    if (key === number.innerText) {
+      number.click();
+    }
+  });
+}
