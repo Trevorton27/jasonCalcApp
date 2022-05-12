@@ -1,46 +1,46 @@
-const numberElement = document.querySelectorAll(".number");
-const operatorElement = document.querySelectorAll(".operator");
-const equalElement = document.querySelector(".equal");
+const numberElement = document.querySelectorAll('.number');
+const operatorElement = document.querySelectorAll('.operator');
+const equalElement = document.querySelector('.equal');
 
-const clearEntityElement = document.querySelector(".clearEntity");
-const clearLastElement = document.querySelector(".clearLast");
+const clearEntityElement = document.querySelector('.clearEntity');
+const clearLastElement = document.querySelector('.clearLast');
 
-const displayElement1 = document.querySelector(".display1");
-const displayElement2 = document.querySelector(".display2");
-const tempResultElement = document.querySelector(".tempResult");
+const displayElementOne = document.querySelector('.display1');
+const displayElementTwo = document.querySelector('.display2');
+const tempResultElement = document.querySelector('.tempResult');
 
-const memRecallElement = document.querySelector(".memRecall");
-const memClearElement = document.querySelector(".memClear");
-const memStoreElement = document.querySelector(".memStore");
+const memoryRecallElement = document.querySelector('.memRecall');
+const memoryClearElement = document.querySelector('.memClear');
+const memoryStoreElement = document.querySelector('.memStore');
 
 let result = null;
-let display1Num = "";
-let display2Num = "";
+let firstOperand = '';
+let secondOperand = '';
 let hasDecimal = false;
-let previousOperator = "";
-let mStore = "";
+let previousOperator = '';
+let memoryStore = '';
 
 numberElement.forEach((number) => {
-  number.addEventListener("click", (e) => {
-    if (e.target.innerText === "." && !hasDecimal) {
+  number.addEventListener('click', (e) => {
+    if (e.target.innerText === '.' && !hasDecimal) {
       hasDecimal = true;
-    } else if (e.target.innerText === "." && hasDecimal) {
+    } else if (e.target.innerText === '.' && hasDecimal) {
       return;
     }
-    display2Num += e.target.innerText;
-    displayElement2.innerText = display2Num;
+    secondOperand += e.target.innerText;
+    displayElementTwo.innerText = secondOperand;
   });
 });
 
 operatorElement.forEach((operator) => {
-  operator.addEventListener("click", (e) => {
-    if (!display2Num) return;
+  operator.addEventListener('click', (e) => {
+    if (!secondOperand) return;
     hasDecimal = false;
     const operationName = e.target.innerText;
-    if (display2Num && display1Num && previousOperator) {
+    if (secondOperand && firstOperand && previousOperator) {
       mathOperation();
     } else {
-      result = parseFloat(display2Num);
+      result = parseFloat(secondOperand);
     }
     clearVar(operationName);
     previousOperator = operationName;
@@ -48,102 +48,74 @@ operatorElement.forEach((operator) => {
 });
 
 function mathOperation() {
-  if (previousOperator === "+") {
-    result = parseFloat(result) + parseFloat(display2Num);
-  } else if (previousOperator === "-") {
-    result = parseFloat(result) - parseFloat(display2Num);
-  } else if (previousOperator === "*") {
-    result = parseFloat(result) * parseFloat(display2Num);
-  } else if (previousOperator === "/") {
-    result = parseFloat(result) / parseFloat(display2Num);
-  } else if (previousOperator === "%") {
-    result = parseFloat(result) % parseFloat(display2Num);
+  switch (previousOperator) {
+    case '+':
+      result = parseFloat(result) + parseFloat(secondOperand);
+      break;
+    case '-':
+      result = parseFloat(result) - parseFloat(secondOperand);
+      break;
+    case '*':
+      result = parseFloat(result) * parseFloat(secondOperand);
+      break;
+    case '/':
+      result = parseFloat(result) / parseFloat(secondOperand);
+      break;
+    case '%':
+      result = parseFloat(result) % parseFloat(secondOperand);
+      break;
   }
 }
 
-function clearVar(name = "") {
-  display1Num += display2Num + " " + name + " ";
-  displayElement1.innerText = display1Num;
-  displayElement2.innerText = "";
-  display2Num = "";
+function clearVar(name = '') {
+  firstOperand += secondOperand + ' ' + name + ' ';
+  displayElementOne.innerText = firstOperand;
+  displayElementTwo.innerText = '';
+  secondOperand = '';
   tempResultElement.innerText = result;
 }
 
-equalElement.addEventListener("click", (e) => {
-  if (!display2Num || !display1Num) {
+equalElement.addEventListener('click', (e) => {
+  if (!secondOperand || !firstOperand) {
     return;
   }
   mathOperation();
   clearVar();
-  displayElement2.innerText = result;
-  display1Num = "";
-  display2Num = result;
-  tempResultElement.innerText = "";
-});
-clearLastElement.addEventListener("click", (e) => {
-  clearScreen();
-});
-clearEntityElement.addEventListener("click", (e) => {
-  displayElement2.innerText = "";
-  display2Num = "";
+  displayElementTwo.innerText = result;
+  firstOperand = '';
+  secondOperand = result;
+  tempResultElement.innerText = '';
 });
 
-memStoreElement.addEventListener("click", (e) => {
-  mStore = display2Num;
+clearLastElement.addEventListener('click', (e) => {
   clearScreen();
 });
-memRecallElement.addEventListener("click", (e) => {
-  display2Num = mStore;
-  displayElement2.innerText = mStore;
+
+clearEntityElement.addEventListener('click', (e) => {
+  displayElementTwo.innerText = '';
+  secondOperand = '';
 });
-memClearElement.addEventListener("click", (e) => {
-  mStore = "";
+
+memoryStoreElement.addEventListener('click', (e) => {
+  memoryStore = secondOperand;
   clearScreen();
 });
+
+memoryRecallElement.addEventListener('click', (e) => {
+  secondOperand = memoryStore;
+  displayElementTwo.innerText = memoryStore;
+});
+
+memoryClearElement.addEventListener('click', (e) => {
+  memoryStore = '';
+  clearScreen();
+});
+
 const clearScreen = () => {
-  display2Num = "";
-  displayElement2.innerText = "0";
-  display1Num = "";
-  displayElement1.innerText = "0";
-  tempResultElement.innerText = "";
-  previousOperator = "";
+  secondOperand = '';
+  displayElementTwo.innerText = '0';
+  firstOperand = '';
+  displayElementOne.innerText = '0';
+  tempResultElement.innerText = '';
+  previousOperator = '';
 };
-window.addEventListener("keydown", (e) => {
-  if (
-    e.key === "1" ||
-    e.key === "2" ||
-    e.key === "3" ||
-    e.key === "4" ||
-    e.key === "5" ||
-    e.key === "6" ||
-    e.key === "7" ||
-    e.key === "8" ||
-    e.key === "9" ||
-    e.key === "0" ||
-    e.key === "." ||
-    e.key === "*" ||
-    e.key === "/" ||
-    e.key === "+" ||
-    e.key === "-" ||
-    e.key === "%" ||
-    e.key === "Enter"
-  ) {
-    clickAction(e.key);
-  }
-});
-
-function clickAction(key) {
-  numberElement.forEach((number) => {
-    if (key === number.innerText) {
-      number.click();
-    }
-  });
-  operatorElement.forEach((operator) => {
-    if (key === operator.innerText) {
-      operator.click();
-    }
-  });
-  if (key === "Enter") {
-    equalElement.click();
-  }
-}
